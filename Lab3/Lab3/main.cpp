@@ -87,6 +87,7 @@ public:
 					for (int j = 0; j < delta.size(); ++j) {
 						point neighbour = curent + delta[j];
 						if (belong_domain(neighbour)) {
+							assert(mapping.count(neighbour) > 0);
 							int neighbour_num = mapping[neighbour];
 							matrix.add_elem(i, neighbour_num, (curent.xi == neighbour.xi ? T : S));
 						}
@@ -110,7 +111,7 @@ public:
 int main() {
 
 	//solution sol(4, 0.75, 1.25, [](double x, double y) { return -4 * (x*x + 3 * y*y); }, [](double x, double y) { return (x*x - y*y)*(x*x - y*y); });
-	solution sol(100, 1, 1, [](double, double) { return 0; }, [](double, double) { return 0; });
+	solution sol(10, 1, 1, [](double, double) { return 0; }, [](double, double) { return 0; });
 	for (int i = 0; i <= 4; ++i) {
 		for (int j = 0; j <= 4; ++j) {
 			cout << sol.belong_domain(geometry::point(j, i)) << " ";
@@ -119,7 +120,7 @@ int main() {
 	}
 
 	calculation calc;
-	//sol.matrix.decrease(+780);
+	sol.matrix.decrease(780);
 	cout << calc.calc(sol.get_matrix()) << endl;
 
 	system("pause");
